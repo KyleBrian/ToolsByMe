@@ -1,0 +1,49 @@
+import os
+import random
+import subprocess
+
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
+
+class MACChanger(QtWidgets() 
+      super().__init__()ets.QWidget):
+  def __init__(self):
+
+    # Create the UI elements
+    self.interface_label = QtWidgets.QLabel("Interface:")
+    self.interface_combo = QtWidgets.QComboBox()
+    self.mac_label = QtWidgets.QLabel("MAC Address:")
+    self.mac_field = QtWidgets.QLineEdit()
+    self.random_button = QtWidgets.QPushButton("Random")
+    self.change_button = QtWidgets.QPushButton("Change")
+
+    # Populate the interface combo box
+    interfaces = self.get_interfaces()
+    for interface in interfaces:
+      self.interface_combo.addItem(interface)
+
+    # Set the layout
+    layout = QtWidgets.QGridLayout()
+    layout.addWidget(self.interface_label, 0, 0)
+    layout.addWidget(self.interface_combo, 0, 1)
+    layout.addWidget(self.mac_label, 1, 0)
+    layout.addWidget(self.mac_field, 1, 1)
+    layout.addWidget(self.random_button, 2, 0)
+    layout.addWidget(self.change_button, 2, 1)
+    self.setLayout(layout)
+
+    # Set the button actions
+    self.random_button.clicked.connect(self.set_random_mac)
+    self.change_button.clicked.connect(self.change_mac)
+
+  def get_interfaces(self):
+    """Get a list of available network interfaces."""
+    if platform.system() == "Linux":
+      output = subprocess.run(["ifconfig"], stdout=subprocess.PIPE).stdout.decode("utf-8")
+      interfaces = re.findall(r"^\w+", output, flags=re.MULTILINE)
+      return interfaces
+    elif platform.system() == "Darwin":
+      output = subprocess.run(["ifconfig"], stdout=subprocess.PIPE).stdout.decode("utf-8")
+      interfaces = re.findall(r"^\w+", output, flags=re.MULTILINE)
+      return interfaces
+  

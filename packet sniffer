@@ -1,0 +1,39 @@
+import os
+import platform
+import re
+import subprocess
+
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
+
+class NetworkSniffer(QtWidgets.QWidget):
+  def __init__(self):
+    super().__init__()
+
+    # Create the UI elements
+    self.interface_label = QtWidgets.QLabel("Interface:")
+    self.interface_combo = QtWidgets.QComboBox()
+    self.target_label = QtWidgets.QLabel("Target:")
+    self.target_field = QtWidgets.QLineEdit()
+    self.start_button = QtWidgets.QPushButton("Start")
+    self.stop_button = QtWidgets.QPushButton("Stop")
+    self.packet_list = QtWidgets.QListWidget()
+
+    # Populate the interface combo box
+    interfaces = self.get_interfaces()
+    for interface in interfaces:
+      self.interface_combo.addItem(interface)
+
+    # Set the layout
+    layout = QtWidgets.QGridLayout()
+    layout.addWidget(self.interface_label, 0, 0)
+    layout.addWidget(self.interface_combo, 0, 1)
+    layout.addWidget(self.target_label, 1, 0)
+    layout.addWidget(self.target_field, 1, 1)
+    layout.addWidget(self.start_button, 2, 0)
+    layout.addWidget(self.stop_button, 2, 1)
+    layout.addWidget(self.packet_list, 3, 0, 1, 2)
+    self.setLayout(layout)
+
+    # Set the button actions
+    self.start_button.clicked.connect(self.start_sn

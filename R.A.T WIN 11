@@ -1,0 +1,12 @@
+import subprocess
+
+# Enable Remote Desktop
+subprocess.run(['reg', 'add', 'HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server', '/v', 'fDenyTSConnections', '/t', 'REG_DWORD', '/d', '0', '/f'])
+
+# Enable Remote Assistance
+subprocess.run(['reg', 'add', 'HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance', '/v', 'fAllowToGetHelp', '/t', 'REG_DWORD', '/d', '1', '/f'])
+
+# Enable Remote Management
+subprocess.run(['reg', 'add', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System', '/v', 'LocalAccountTokenFilterPolicy', '/t', 'REG_DWORD', '/d', '1', '/f'])
+
+print('Remote access enabled successfully.')

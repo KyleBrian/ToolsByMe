@@ -1,0 +1,32 @@
+import os
+import platform
+import re
+import subprocess
+
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
+
+class NetworkScanner(QtWidgets.QWidget):
+  def __init__(self):
+    super().__init__()
+
+    # Create the UI elements
+    self.network_list = QtWidgets.QListWidget()
+    self.scan_button = QtWidgets.QPushButton("Scan")
+    self.login_button = QtWidgets.QPushButton("Login")
+    self.username_label = QtWidgets.QLabel("Username:")
+    self.username_field = QtWidgets.QLineEdit()
+    self.password_label = QtWidgets.QLabel("Password:")
+    self.password_field = QtWidgets.QLineEdit()
+    self.password_field.setEchoMode(QtWidgets.QLineEdit.Password)
+
+    # Set the layout
+    layout = QtWidgets.QGridLayout()
+    layout.addWidget(self.network_list, 0, 0, 1, 2)
+    layout.addWidget(self.scan_button, 1, 0)
+    layout.addWidget(self.login_button, 1, 1)
+    layout.addWidget(self.username_label, 2, 0)
+    layout.addWidget(self.username_field, 2, 1)
+    layout.addWidget(self.password_label, 3, 0)
+    layout.addWidget(self.password_field, 3, 1)
+    self.setLayout(layout)

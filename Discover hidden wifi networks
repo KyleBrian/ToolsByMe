@@ -1,0 +1,21 @@
+import subprocess
+
+def scan_for_hidden_networks():
+  # Use the iwlist command to scan for WiFi networks
+  output = subprocess.run(['iwlist', 'wlan0', 'scan'], capture_output=True).stdout.decode()
+
+  # Split the output into a list of lines
+  lines = output.split("\n")
+
+  # Iterate through the lines and look for lines that start with "ESSID"
+  for line in lines:
+    if line.startswith("ESSID"):
+      # Extract the ESSID (network name) from the line
+      essid = line.split(":")[1].strip('"')
+
+      # Print the ESSID if it is not "<hidden>"
+      if essid != "<hidden>":
+        print(essid)
+
+# Test the function
+scan_for_hidden_networks()

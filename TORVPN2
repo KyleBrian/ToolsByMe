@@ -1,0 +1,26 @@
+import stem
+import stem.connection
+
+# Create a new Tor controller
+controller = stem.connection.Controller.from_port()
+
+# Authenticate with the controller
+controller.authenticate()
+
+# Set a new circuit through the Tor network
+controller.set_options({
+  'ExitNodes': '{ru}',
+  'StrictExitNodes': 1
+})
+
+# Get the current IP address
+print("Current IP address:", controller.get_info("address"))
+
+# Start the VPN connection
+controller.signal(stem.Signal.NEWNYM)
+
+# Get the new IP address
+print("New IP address:", controller.get_info("address"))
+
+# Close the controller
+controller.close()

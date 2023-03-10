@@ -1,0 +1,18 @@
+import subprocess
+import re
+
+def clone_mac_address(interface):
+  # Get the MAC address of the device we are connected to
+  output = subprocess.run(["arp", "-a"], stdout=subprocess.PIPE).stdout.decode("utf-8")
+  match = re.search(r"(?<=\()([\da-f:]+)(?=\))", output)
+  if match:
+    target_mac = match.group(1)
+  else:
+    print("Unable to find connected device MAC address")
+    return
+
+  # Set the MAC address of the specified interface
+  subprocess.run(["ifconfig", interface, "ether", target_mac])
+
+# Example usage
+clone_mac_address("eth0")

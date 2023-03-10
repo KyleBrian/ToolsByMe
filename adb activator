@@ -1,0 +1,11 @@
+import os
+
+# Check if ADB is installed
+if not os.path.exists('/usr/bin/adb'):
+    print('ADB is not installed on this system.')
+    exit()
+
+# Create ADB bridge
+os.system('adb start-server')
+
+print('ADB bridge created successfully.')

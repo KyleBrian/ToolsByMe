@@ -1,0 +1,32 @@
+package main
+
+import (
+  "fmt"
+  "log"
+
+  "github.com/paypal/gatt"
+)
+
+func main() {
+  // Create a new Bluetooth client
+  client, err := gatt.NewClient(nil)
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer client.Close()
+
+  // Scan for Bluetooth devices
+  fmt.Println("Scanning for Bluetooth devices...")
+  err = client.Scan([]gatt.UUID{}, false, func(adapter gatt.Mac, addr gatt.Addr, rssi int, advData []byte) {
+    // Print the device address and name
+    fmt.Printf("Device %s (%s), RSSI=%d dB:\n", addr, adapter, rssi)
+    name := gatt.Name(advData)
+    if name == "" {
+      name = "Unnamed"
+    }
+    fmt.Println("  Name:", name)
+  }, 5)
+  if err != nil {
+    log.Fatal(err)
+  }
+}

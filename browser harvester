@@ -1,0 +1,48 @@
+import os
+import platform
+import time
+
+def search_browsers():
+  # Get the operating system name
+  os_name = platform.system()
+
+  # Create a list to store the found browsers
+  browsers = []
+
+  # Check if the operating system is Windows
+  if os_name == "Windows":
+    # Search for browsers in the default installation locations
+    locations = [
+      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+      "C:\\Program Files\\Internet Explorer\\iexplore.exe",
+      "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
+      "C:\\Program Files (x86)\\Opera\\launcher.exe",
+    ]
+    for location in locations:
+      if os.path.exists(location):
+        browser = os.path.basename(location)
+        browsers.append(browser)
+
+  # Return the list of found browsers
+  return browsers
+
+def main():
+  # Search for browsers
+  browsers = search_browsers()
+
+  # Print the results
+  print("Browsers found:")
+  for browser in browsers:
+    print("-", browser)
+
+  # Open the log file for writing
+  with open("browsers.log", "w") as f:
+    # Write the current time and date to the log file
+    f.write(time.ctime())
+    f.write("\n\n")
+
+    # Write the list of found browsers to the log file
+    f.write("Browsers found:\n")
+    for browser in browsers:
+      f.write("- ")
+      f.write(browser)

