@@ -50,3 +50,4 @@ CREATE TABLE activity_logs (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+DanieL@190!
