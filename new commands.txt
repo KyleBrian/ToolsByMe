@@ -1,0 +1,59 @@
+Create the students Table:
+Table Name: students
+
+Columns:
+
+id: INT, Check PK (Primary Key), check AI (Auto Increment)
+school_id: VARCHAR(20), Check NN (Not Null), Check UN (Unique)
+name: VARCHAR(100), Check NN
+class: VARCHAR(50), Check NN
+created_at: TIMESTAMP, Default Value: CURRENT_TIMESTAMP
+After entering the details, click on Apply to create the table.
+
+Create the attendance Table:
+Repeat the above steps for the attendance table:
+Table Name: attendance
+Columns:
+id: INT, Check PK, Check AI
+student_id: INT, Check NN
+date: DATE, Check NN
+status: ENUM('Present', 'Absent'), Check NN
+Define a foreign key:
+Click on the Foreign Keys tab and add:
+Name: fk_student_id
+Referenced Table: students
+Column: student_id -> References: id
+Create the classes Table:
+Table Name: classes
+Columns:
+id: INT, Check PK, Check AI
+class_name: VARCHAR(50), Check NN, Check UN
+teacher_name: VARCHAR(100)
+created_at: TIMESTAMP, Default Value: CURRENT_TIMESTAMP
+Create the feedback Table:
+Table Name: feedback
+Columns:
+id: INT, Check PK, Check AI
+student_id: INT, Check NN
+feedback_text: TEXT, Check NN
+created_at: TIMESTAMP, Default Value: CURRENT_TIMESTAMP
+Define a foreign key to students.
+Create the users Table:
+Table Name: users
+Columns:
+id: INT, Check PK, Check AI
+username: VARCHAR(50), Check NN, Check UN
+password: VARCHAR(255), Check NN
+created_at: TIMESTAMP, Default Value: CURRENT_TIMESTAMP
+Review and Create:
+
+After defining all the columns and foreign keys, review your changes in the Apply SQL window.
+Click Apply to execute the SQL commands and create the tables.
+You can close the table creation window after creating each table.
+Verify Your Tables:
+
+After creating the tables, you can verify that they exist by refreshing the Schemas tab (right-click the schema and select Refresh) and expanding your schema to see the tables listed.
+Next Steps
+Once the tables are created, you can begin populating them with data and connecting them to your PHP scripts.
+
+Let me know if you need further assistance with any of these steps!
